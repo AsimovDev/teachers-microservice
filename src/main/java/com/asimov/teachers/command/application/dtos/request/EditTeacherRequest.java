@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class EditTeacherRequest {
-    private @Setter @Getter String id;
+    private @Setter @Getter String teacherId;
     private @Getter String firstName;
     private @Getter String lastName;
     private @Getter String point;

@@ -27,6 +27,7 @@ public class AxonConfig {
         });
         return xStream;
     }
+
     @Bean
     public CommandBus commandBus(PlatformTransactionManager platformTransactionManager) {
         return SimpleCommandBus.builder()
@@ -38,14 +39,15 @@ public class AxonConfig {
     public AnnotationCommandHandlerBeanPostProcessor annotationCommandHandlerBeanPostProcessor() {
         return new AnnotationCommandHandlerBeanPostProcessor();
     }
-
+/*
     @Bean
     public EventBus eventBus() {
         return SimpleEventBus.builder().build();
     }
 
+ */
     @Bean
-    public Repository<Teacher> eventSourcingCustomerRepository(EventStore eventStore){
+    public Repository<Teacher> eventSourcingTeacherRepository(EventStore eventStore){
         return EventSourcingRepository.builder(Teacher.class)
                 .eventStore(eventStore)
                 .build();

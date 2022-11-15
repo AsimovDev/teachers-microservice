@@ -8,7 +8,7 @@ import com.asimov.teachers.command.application.dtos.request.RegisterTeacherReque
 import com.asimov.teachers.command.application.dtos.response.EditTeacherResponse;
 import com.asimov.teachers.command.application.dtos.response.RegisterTeacherResponse;
 import com.asimov.teachers.command.application.services.TeacherApplicationService;
-import com.asimov.teachers.command.infraestructure.TeacherRepository;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.modelling.command.AggregateNotFoundException;
@@ -17,17 +17,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("/teachers")
 @Tag(name = "Teachers")
 public class TeacherCommandController {
     private final TeacherApplicationService teacherApplicationService;
     private final CommandGateway commandGateway;
-    private final TeacherRepository teacherRepository;
 
-    public TeacherCommandController(TeacherApplicationService teacherApplicationService, CommandGateway commandGateway, TeacherRepository teacherRepository){
+    public TeacherCommandController(TeacherApplicationService teacherApplicationService, CommandGateway commandGateway){
         this.teacherApplicationService = teacherApplicationService;
         this.commandGateway = commandGateway;
-        this.teacherRepository = teacherRepository;
     }
 
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,7 +44,7 @@ public class TeacherCommandController {
     @PutMapping("/{teacherId}")
     public ResponseEntity<Object> edit(@PathVariable("teacherId") String teacherId, @RequestBody EditTeacherRequest editTeacherRequest){
         try {
-            editTeacherRequest.setId(teacherId);
+            editTeacherRequest.setTeacherId(teacherId);
             Result<EditTeacherResponse, Notification> result = teacherApplicationService.edit(editTeacherRequest);
             if(result.isSuccess()){
                 return ApiController.ok(result.getSuccess());

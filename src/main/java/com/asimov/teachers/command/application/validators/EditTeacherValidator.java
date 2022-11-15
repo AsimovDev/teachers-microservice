@@ -4,7 +4,7 @@ import com.asimov.common.application.Notification;
 import com.asimov.teachers.command.application.dtos.request.EditTeacherRequest;
 import com.asimov.teachers.command.application.dtos.request.RegisterTeacherRequest;
 import com.asimov.teachers.command.domain.Teacher;
-import com.asimov.teachers.command.infraestructure.TeacherRepository;
+
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -12,23 +12,23 @@ import java.util.UUID;
 
 @Component
 public class EditTeacherValidator {
-    private final TeacherRepository teacherRepository;
 
-    public EditTeacherValidator(TeacherRepository teacherRepository){
-        this.teacherRepository = teacherRepository;
+    public EditTeacherValidator(){
+
     }
     public Notification validate(EditTeacherRequest editTeacherRequest){
         Notification notification = new Notification();
 
-        String teacherId = editTeacherRequest.getId().trim();
+        String teacherId = editTeacherRequest.getTeacherId().trim();
         if(teacherId.isEmpty()){
             notification.addError("Teacher id is required");
         }
+        /*
         Optional<Teacher> customerIdOptional = teacherRepository.findById(UUID.fromString(teacherId));
         if (customerIdOptional.isPresent()) {
             notification.addError("Teacher not found");
             return notification;
-        }
+        }*/
         String firstNane = editTeacherRequest.getFirstName() != null ? editTeacherRequest.getFirstName().trim() : "";
         if(firstNane.isEmpty()){
             notification.addError("Username is required");
@@ -60,10 +60,13 @@ public class EditTeacherValidator {
         if (notification.hasErrors()){
             return notification;
         }
+        /*
         Optional<Teacher> emailTeacherOptional = teacherRepository.findByEmailValue(email);
         if (emailTeacherOptional.isPresent()){
             notification.addError("Teacher email is taken");
         }
+
+         */
         return notification;
     }
 }

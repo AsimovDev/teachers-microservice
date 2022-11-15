@@ -72,16 +72,15 @@ public class TeacherApplicationService {
         if (notification.hasErrors()){
             return Result.failure(notification);
         }
-        String teacherId = UUID.randomUUID().toString();
         EditTeacher editTeacher = new EditTeacher(
-                teacherId,
+                editTeacherRequest.getTeacherId().trim(),
                 editTeacherRequest.getFirstName().trim(),
                 editTeacherRequest.getLastName().trim(),
                 editTeacherRequest.getPoint().trim(),
                 editTeacherRequest.getAge().trim(),
                 editTeacherRequest.getEmail().trim(),
                 editTeacherRequest.getPassword().trim(),
-                editTeacherRequest.getPhone()
+                editTeacherRequest.getPhone().trim()
         );
         CompletableFuture<Object> future = commandGateway.send(editTeacher);
         CompletableFuture<ResultType> futureResult = future.handle((ok, ex) -> (ex != null) ? ResultType.FAILURE : ResultType.SUCCESS);

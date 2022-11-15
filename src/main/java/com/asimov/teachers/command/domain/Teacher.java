@@ -9,12 +9,16 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.Instant;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
+
 @Aggregate
 public class Teacher {
+
     @AggregateIdentifier
     private String teacherId;
     private String point;

@@ -3,17 +3,17 @@ package com.asimov.teachers.command.application.validators;
 import com.asimov.common.application.Notification;
 import com.asimov.teachers.command.application.dtos.request.RegisterTeacherRequest;
 import com.asimov.teachers.command.domain.Teacher;
-import com.asimov.teachers.command.infraestructure.TeacherRepository;
+
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
 public class RegisterTeacherValidator {
-    private final TeacherRepository teacherRepository;
 
-    public RegisterTeacherValidator(TeacherRepository teacherRepository){
-        this.teacherRepository = teacherRepository;
+
+    public RegisterTeacherValidator(){
+
     }
     public Notification validate(RegisterTeacherRequest registerTeacherRequest){
         Notification notification = new Notification();
@@ -49,10 +49,12 @@ public class RegisterTeacherValidator {
         if (notification.hasErrors()){
             return notification;
         }
+        /*
         Optional<Teacher> emailTeacherOptional = teacherRepository.findByEmailValue(email);
         if (emailTeacherOptional.isPresent()){
             notification.addError("Teacher email is taken");
         }
+        */
         return notification;
     }
 }
